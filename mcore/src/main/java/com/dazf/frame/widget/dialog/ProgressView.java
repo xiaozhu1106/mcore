@@ -1,4 +1,4 @@
-package com.example.zzbmi.dzfnewcore.dzf.dialog;
+package com.dazf.frame.widget.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.example.zzbmi.dzfnewcore.R;
+import com.dazf.frame.R;
 
 
 public class ProgressView extends Dialog {

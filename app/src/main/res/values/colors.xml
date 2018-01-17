@@ -5,7 +5,6 @@
     <color name="colorAccent">#FF4081</color>
 
 
-    <!--进度条颜色-->
-    <color name="progress_color">#4b80e6</color>
-    <color name="lightGrey">#CBCED0</color>
+    <color name="gray">#898989</color>
+    <color name="background">#f2f2f2</color>
 </resources>

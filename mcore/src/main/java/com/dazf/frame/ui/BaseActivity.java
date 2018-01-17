@@ -1,10 +1,10 @@
-package com.example.zzbmi.dzfnewcore.dzf;
+package com.dazf.frame.ui;
 
 import android.widget.Toast;
 
 import com.dazf.frame.base.BasePresenter;
 import com.dazf.frame.base.RxBaseActivity;
-import com.example.zzbmi.dzfnewcore.dzf.dialog.ProgressView;
+import com.dazf.frame.widget.dialog.ProgressView;
 
 /**
  * @author ZhuZiBo
@@ -31,4 +31,12 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxBaseActivi
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (progressView != null) {
+            progressView.dismiss();
+            progressView = null;
+        }
+    }
 }

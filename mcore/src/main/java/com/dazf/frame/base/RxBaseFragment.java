@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.dazf.frame.baserx.RxManager;
 import com.dazf.frame.commonutils.TUtil;
 import com.dazf.frame.commonutils.lifecycle.FragmentLifecycleable;
+import com.dazf.frame.widget.status.PageState;
+import com.dazf.frame.widget.status.StatusLayout;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import butterknife.ButterKnife;
@@ -41,7 +43,7 @@ import io.reactivex.subjects.Subject;
 //    }
 //
 //    @Override
-//    public void initView() {
+//    public void init() {
 //    }
 //}
 //2.普通模式
@@ -56,10 +58,10 @@ import io.reactivex.subjects.Subject;
 //    }
 //
 //    @Override
-//    public void initView() {
+//    public void init() {
 //    }
 //}
-public abstract class RxBaseFragment<P extends BasePresenter> extends Fragment implements IView , FragmentLifecycleable {
+public abstract class RxBaseFragment<P extends BasePresenter> extends Fragment implements IView, FragmentLifecycleable {
     public View rootView;
     protected P mPresenter;
     public Context mContext;
@@ -67,6 +69,7 @@ public abstract class RxBaseFragment<P extends BasePresenter> extends Fragment i
     protected RxBaseActivity mActivity;
     private Unbinder unbinder;
     private final BehaviorSubject<FragmentEvent> mLifecycleSubject = BehaviorSubject.create();
+    private StatusLayout statusLayout;
 
     @Nullable
     @Override
@@ -82,19 +85,42 @@ public abstract class RxBaseFragment<P extends BasePresenter> extends Fragment i
             mPresenter.setView(this);
         }
         mContext = getActivity();
-        initView();
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        init();
     }
 
     //获取布局文件
     protected abstract int getLayoutId();
 
     //初始化view
-    protected abstract void initView();
+    protected abstract void init();
+
+    //是否绑定状态布局
+    protected abstract boolean isBindStatusView();
 
     //简单页面无需mvp就不用管此方法即可,完美兼容各种实际场景的变通
     public P createPresenter() {
         return TUtil.getT(this, 0);
+    }
+
+    /**
+     * 指定当前页面状态
+     * @param state
+     */
+    public void setPageState(PageState state) {
+        if (isBindStatusView()) {
+            if (statusLayout == null) {
+                statusLayout = StatusLayout.generate(this);
+            }
+            statusLayout.setStatus(state);
+        } else {
+            throw new IllegalStateException("no bind StatusView, can not set current page status");
+        }
     }
 
 

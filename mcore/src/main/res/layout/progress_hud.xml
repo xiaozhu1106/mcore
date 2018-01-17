@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:padding="15dp">
 
-    <com.example.zzbmi.dzfnewcore.dzf.dialog.ProgressWheel
+    <com.dazf.frame.widget.dialog.ProgressWheel
         android:id="@+id/progress_wheel"
         android:layout_width="35dp"
         android:layout_height="35dp"

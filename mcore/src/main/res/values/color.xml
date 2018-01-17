@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="base_text_color_light">#909090</color>
+    <color name="base_loading_background">#f7f7f7</color>
+
+
+    <!--进度条颜色-->
+    <color name="progress_color">#4b80e6</color>
+    <color name="lightGrey">#CBCED0</color>
+</resources>

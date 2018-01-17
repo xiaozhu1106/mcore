@@ -48,6 +48,8 @@
 
 
         <activity android:name=".dzf.mvp.ui.IdeaRebackActivity"/>
+        <activity android:name=".dzf.mvp.ui.DemoListActivity"/>
+
         <meta-data
             android:name="com.example.zzbmi.dzfnewcore.dzf.config.GlobalConfiguration"
             android:value="ConfigModule"/>

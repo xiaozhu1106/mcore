@@ -1,10 +1,11 @@
 package com.example.zzbmi.dzfnewcore.dzf.mvp.ui;
 
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.dazf.frame.ui.BaseActivity;
 import com.example.zzbmi.dzfnewcore.R;
-import com.example.zzbmi.dzfnewcore.dzf.BaseActivity;
 import com.example.zzbmi.dzfnewcore.dzf.mvp.presenter.IdeaRebackPresenter;
 
 import butterknife.BindView;
@@ -25,7 +26,12 @@ public class IdeaRebackActivity extends BaseActivity<IdeaRebackPresenter> {
     }
 
     @Override
-    public void initView() {
+    public void init() {
         btnReback.setOnClickListener(view -> mPresenter.toIdeaReback(etReback.getText().toString().trim()));
+    }
+
+    @Override
+    public View getBindViewToStatusView() {
+        return null;
     }
 }

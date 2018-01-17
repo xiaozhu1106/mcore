@@ -15,6 +15,8 @@ import com.dazf.frame.baseapp.BaseApplication;
 import com.dazf.frame.baserx.RxManager;
 import com.dazf.frame.commonutils.TUtil;
 import com.dazf.frame.commonutils.lifecycle.ActivityLifecycleable;
+import com.dazf.frame.widget.status.PageState;
+import com.dazf.frame.widget.status.StatusLayout;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import butterknife.ButterKnife;
@@ -35,6 +37,7 @@ public abstract class RxBaseActivity<P extends BasePresenter> extends AppCompatA
     public static final String IS_NOT_ADD_ACTIVITY_LIST = "is_add_activity_list";//是否加入到activity的list，管理
     private final BehaviorSubject<ActivityEvent> mLifecycleSubject = BehaviorSubject.create();
     private Unbinder unbinder;
+    private StatusLayout statusLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,7 @@ public abstract class RxBaseActivity<P extends BasePresenter> extends AppCompatA
             mPresenter.setView(this);
         }
         mContext = this;
-        this.initView();
+        this.init();
         BaseApplication.baseApplication.addActivity(this);
     }
 
@@ -81,8 +84,30 @@ public abstract class RxBaseActivity<P extends BasePresenter> extends AppCompatA
     public abstract int getLayoutId();
 
     //初始化view
-    public abstract void initView();
+    public abstract void init();
 
+
+    /**
+     * 绑定view到状态布局中
+     * activity中绑定的是View
+     * 不需状态布局时，直接返回null
+     */
+    public abstract View getBindViewToStatusView();
+
+    /**
+     * 指定当前页面状态
+     * @param state
+     */
+    public void setPageState(PageState state) {
+        if (getBindViewToStatusView() == null) {
+            if (statusLayout == null) {
+                statusLayout = StatusLayout.generate(getBindViewToStatusView());
+            }
+            statusLayout.setStatus(state);
+        } else {
+            throw new IllegalStateException("no bind StatusView, can not set current page status");
+        }
+    }
 
     //简单页面无需mvp就不用管此方法即可,完美兼容各种实际场景的变通
     //由于多构造的情况，还是自己new靠谱

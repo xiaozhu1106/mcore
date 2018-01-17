@@ -1,4 +1,4 @@
-package com.example.zzbmi.dzfnewcore.dzf.dialog;
+package com.dazf.frame.widget.dialog;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -16,7 +16,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.example.zzbmi.dzfnewcore.R;
+import com.dazf.frame.R;
 
 
 public class ProgressWheel extends View {
@@ -87,7 +87,7 @@ public class ProgressWheel extends View {
   }
 
   @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1) private void setAnimationEnabled() {
-    int currentApiVersion = android.os.Build.VERSION.SDK_INT;
+    int currentApiVersion = Build.VERSION.SDK_INT;
 
     float animationValue;
     if (currentApiVersion >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -696,8 +696,8 @@ public class ProgressWheel extends View {
 
   static class WheelSavedState extends BaseSavedState {
     //required field that makes Parcelables from a Parcel
-    public static final Parcelable.Creator<WheelSavedState> CREATOR =
-        new Parcelable.Creator<WheelSavedState>() {
+    public static final Creator<WheelSavedState> CREATOR =
+        new Creator<WheelSavedState>() {
           public WheelSavedState createFromParcel(Parcel in) {
             return new WheelSavedState(in);
           }

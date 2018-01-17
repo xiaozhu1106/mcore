@@ -3,11 +3,14 @@ package com.example.zzbmi.dzfnewcore.dzf.config;
 import android.app.Application;
 import android.content.Context;
 
-import com.dazf.frame.http.GlobalConfigModule;
 import com.dazf.frame.baseapp.AppDelegate;
 import com.dazf.frame.http.ConfigModule;
+import com.dazf.frame.http.GlobalConfigModule;
 import com.dazf.frame.http.IRepositoryManager;
 import com.dazf.frame.http.RequestInterceptor;
+import com.dazf.frame.widget.status.Config;
+import com.dazf.frame.widget.status.StatusLayoutManager;
+import com.example.zzbmi.dzfnewcore.R;
 import com.example.zzbmi.dzfnewcore.dzf.utils.DZFConfig;
 
 import java.util.List;
@@ -41,6 +44,23 @@ public class GlobalConfiguration implements ConfigModule {
             public void onCreate(Application application) {
                 //代理Application初始化的工作
                 Timber.plant(new Timber.DebugTree());
+                //设置全局错误状态布局配置
+                Config config = new Config();
+                config.setErrorText("出错啦~请稍后重试！")
+                        .setEmptyText("抱歉，暂无数据")
+                        .setNoNetworkText("无网络连接，请检查您的网络···")
+                        .setErrorImage(R.mipmap.define_error)
+                        .setEmptyImage(R.mipmap.define_empty)
+                        .setNoNetworkImage(R.mipmap.define_nonetwork)
+                        .setAllTipTextColor(R.color.gray)
+                        .setAllTipTextSize(14)
+                        .setReloadButtonText("点我重试哦")
+                        .setReloadButtonTextSize(14)
+                        .setReloadButtonTextColor(R.color.gray)
+                        .setReloadButtonWidthAndHeight(150, 40)
+                        .setAllPageBackgroundColor(R.color.background)
+                        .setLoadingPageLayout(R.layout.define_loading_page2);
+                StatusLayoutManager.getInstance().setConfig(config);
             }
 
             @Override
